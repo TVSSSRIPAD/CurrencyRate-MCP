@@ -40,6 +40,25 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           },
           required: ["symbol"]
         }
+      },
+      {
+        name: "get_currency_rate_details_for_date",
+        description: "Returns the current currency exchange rate details of a currency on a particular date. \
+          This tool should be used after using the list_all_currencies tool to retrieve rate for a particular date.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            symbol: {
+              type: "string",
+              description: "The symbol of the currency to get the exchange rate for."
+            },
+            date: {
+              type: "string",
+              description: "The date for which exchange rate needs to be fetched. Needs to be in YYYY-MM-DD format.",
+            }
+          },
+          required: ["symbol", "date"]
+        }
       }
     ]
   }
@@ -77,6 +96,18 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           ]
         }
 
+      case "get_currency_rate_details_for_date":
+        if (!request.params.arguments || !request.params.arguments.symbol || !request.params.arguments.date) {
+          throw new Error("Arguments with symbol and date are required");
+        }
+        const { symbol, date } = request.params.arguments;
+        // Use the date string directly as it's expected to be in YYYY-MM-DD format
+        const exchangeRatesForDate = await fetch(`https://api.vatcomply.com/rates?base=${symbol}&date=${date}`);
+        return {
+          content: [
+            { type: "text", text: JSON.stringify(await exchangeRatesForDate.json(), null, 2) }
+          ]
+        }
       default:
         throw new Error(`Unknown tool: ${request.params.name}`);
     }
