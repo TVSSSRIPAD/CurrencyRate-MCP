@@ -25,5 +25,5 @@
   ```
   - With this step, MCPServer is available for usage with Claude desktop.
 
- #### Demo video:-
-![Demo video](screenshots/Demo.mov)
+ ### Demo video:-
+[![Demo video](screenshots/demo.png)](https://youtu.be/mme-iBEw7mk)
