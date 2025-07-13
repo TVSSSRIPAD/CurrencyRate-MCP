@@ -24,6 +24,9 @@
     }
   ```
   - With this step, MCPServer is available for usage with Claude desktop.
-
- ### Demo video:-
-[![Demo video](screenshots/demo.png)](https://youtu.be/mme-iBEw7mk)
+  #### Steps to run MCP server manually:-
+  - 
+  - If you wish to debug this using [MCPInspector](https://modelcontextprotocol.io/docs/tools/inspector), you can run the command `pnpm dlx  @modelcontextprotocol/inspector`
+	  - This opens up MCPInspector UI on http://127.0.0.1:6274/ where you need to specify `node` as command to run with `dist/src/index.js` as argument. This gives us UI to connect with out mcp server for debugging.
+    - Screenshot - 
+    ![mcp-inspector-debugger](screenshots/MCP-Inspector.png)
